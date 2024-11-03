@@ -27,8 +27,8 @@ jobs:
           python -m venv venv
           source venv/bin/activate
       
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install app
+        run: pip install .
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
@@ -75,4 +75,8 @@ jobs:
         with:
           app-name: 'LLMTesting'
           slot-name: 'Production'
+
+      - name: Run Streamlit
+        run: |
+          streamlit run src/streamlit_app.py --server.port 8000 --server.enableCORS false
           
