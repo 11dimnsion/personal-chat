@@ -3,6 +3,8 @@
 # Activate the virtual environment
 source venv/bin/activate
 
+echo "STARTING!!!\n"
+
 # Start the separate service in the background
 python src/run_service.py &
 
