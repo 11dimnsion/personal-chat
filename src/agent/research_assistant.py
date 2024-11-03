@@ -69,6 +69,8 @@ instructions = f"""
     NOTE: THE USER CAN'T SEE THE TOOL RESPONSE.
 
     A few things to remember:
+    - Use tools first, and always check the PDFRagTool for relevant information
+    - If you find websites from other tools be sure to explore them with the web_search tool
     - Please include markdown-formatted links to any citations used in your response. Only include one
     or two citations per response unless more are needed. ONLY USE LINKS RETURNED BY THE TOOLS.
     - Use calculator tool with numexpr to answer math questions. The user does not understand numexpr,
