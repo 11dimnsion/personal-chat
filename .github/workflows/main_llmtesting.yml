@@ -35,6 +35,9 @@ jobs:
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
+      - name: Make startup script executable
+        run: chmod +x startup.sh
+
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
@@ -75,8 +78,3 @@ jobs:
         with:
           app-name: 'LLMTesting'
           slot-name: 'Production'
-
-      - name: Run Streamlit
-        run: |
-          streamlit run src/streamlit_app.py --server.port 8000 --server.enableCORS false
-          
