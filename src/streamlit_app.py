@@ -72,6 +72,8 @@ async def main() -> None:
     }
     # Config options
     with st.sidebar:
+        st.image("media/Rendered-stacked-logo.webp", use_column_width=True)
+
         st.header(f"{APP_TITLE}")
         ""
         "Helpful chatbot for learning about Rendered.ai and how to integrate our tools"
@@ -179,7 +181,7 @@ async def draw_messages(
     # Iterate over the messages and draw them
     while msg := await anext(messages_agen, None):
         # str message represents an intermediate token being streamed
-        print("CHECKING MESSAGE TYPE:", type(msg))
+        #print("CHECKING MESSAGE TYPE:", type(msg))
         if isinstance(msg, str):
             # If placeholder is empty, this is the first token of a new message
             # being streamed. We need to do setup.
@@ -192,7 +194,7 @@ async def draw_messages(
 
             streaming_content += msg
             streaming_placeholder.write(streaming_content)
-            print("WROTE A STRING!!!!!!!")
+            #print("WROTE A STRING!!!!!!!")
             continue
         if not isinstance(msg, ChatMessage):
             st.error(f"Unexpected message type: {type(msg)}")
