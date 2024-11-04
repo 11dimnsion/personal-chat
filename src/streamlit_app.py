@@ -87,7 +87,7 @@ async def main() -> None:
         predefined_prompts = {
             "About RenderedAI": "What does RenderedAI do?",
             "Synthetic data platform": "Why would I need a synthetic data platform?",
-            "Automation": "How can a platform like RenderedAI help me with automation?",
+            "Synthetic Data Automation": "How can a platform like RenderedAI help me with automation?",
         }
 
         for label, prompt in predefined_prompts.items():
@@ -99,10 +99,10 @@ async def main() -> None:
                 "Prompts, responses and feedback in this app are anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only."
             )
 
-        st.markdown(
-            f"Thread ID: **{st.session_state.thread_id}**",
-            help=f"Set URL query parameter ?thread_id={st.session_state.thread_id} to continue this conversation",
-        )
+        # st.markdown(
+        #     f"Thread ID: **{st.session_state.thread_id}**",
+        #     help=f"Set URL query parameter ?thread_id={st.session_state.thread_id} to continue this conversation",
+        # )
 
         "This tool was based on the [Agent Service Toolkit] :material/favorite: (https://github.com/JoshuaC215/agent-service-toolkit)"
 
