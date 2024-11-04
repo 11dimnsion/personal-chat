@@ -200,7 +200,7 @@ async def draw_messages(
             st.error(f"Unexpected message type: {type(msg)}")
             st.write(msg)
             st.stop()
-        print("CHECKING MESSAGE TYPE AGAIN:", type(msg))
+        #print("CHECKING MESSAGE TYPE AGAIN:", type(msg))
         match msg.type:
             # A message from the user, the easiest case
             case "human":
