@@ -36,6 +36,9 @@ dependencies = [
     "setuptools ~=74.0.0",
     "streamlit ~=1.37.0",
     "uvicorn ~=0.30.5",
+    "pypdf ~=5.1.0",
+    "faiss-cpu",
+    "numpy"
 ]
 
 [project.optional-dependencies]
