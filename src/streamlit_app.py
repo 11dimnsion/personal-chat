@@ -68,9 +68,9 @@ async def main() -> None:
 
     models = {
         "OpenAI GPT-4o-mini (streaming)": "gpt-4o-mini",
-        # "Gemini 1.5 Flash (streaming)": "gemini-1.5-flash",
-        # "Claude 3 Haiku (streaming)": "claude-3-haiku",
-        # "llama-3.1-70b on Groq": "llama-3.1-70b",
+        "Gemini 1.5 Flash (streaming)": "gemini-1.5-flash",
+        "Claude 3 Haiku (streaming)": "claude-3-haiku",
+        "llama-3.1-70b on Groq": "llama-3.1-70b",
     }
     # Config options
     with st.sidebar:
