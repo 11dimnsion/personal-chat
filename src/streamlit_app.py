@@ -51,6 +51,8 @@ async def main() -> None:
     if "agent_client" not in st.session_state:
         agent_url = os.getenv("AGENT_URL", "http://localhost")
         st.session_state.agent_client = AgentClient(agent_url)
+        print("URL:",agent_url)
+
     agent_client: AgentClient = st.session_state.agent_client
 
     if "thread_id" not in st.session_state:

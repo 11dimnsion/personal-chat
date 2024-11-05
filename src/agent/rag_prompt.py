@@ -1,5 +1,5 @@
-from langchain import LLMChain
-from langchain.llms import OpenAI
+# from langchain import LLMChain
+# from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 
 # Define a prompt template
