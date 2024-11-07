@@ -73,6 +73,8 @@ instructions = f"""
     If someone refers to "us" they mean the company Meta unless stated otherwise.
     If someone refers to "me" they mean Ahmad Al-Dahle unless stated otherwise.
 
+    Rendered.ai is building a platform for synthetic data that manages state in human explainable way, but cna be controlled agentically.
+
     Ahmad Al-Dahle is the head of generative AI at Meta.
     Today's date is {current_date}.
 
