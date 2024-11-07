@@ -18,6 +18,7 @@ from langgraph.prebuilt import ToolNode
 from agent.llama_guard import LlamaGuard, LlamaGuardOutput, SafetyAssessment
 from agent.calculator_tool import calculator
 from agent.rag_tool import pdf_rag_tool
+from agent.faq_tool import json_rag_tool
 
 
 class AgentState(MessagesState, total=False):
@@ -54,7 +55,7 @@ if not models:
 
 
 web_search = DuckDuckGoSearchResults(name="WebSearch")
-tools = [web_search, calculator, pdf_rag_tool]
+tools = [web_search, calculator, pdf_rag_tool, json_rag_tool]
 
 # Add weather tool if API key is set
 # Register for an API key at https://openweathermap.org/api/
@@ -63,13 +64,15 @@ if os.getenv("OPENWEATHERMAP_API_KEY") is not None:
 
 current_date = datetime.now().strftime("%B %d, %Y")
 instructions = f"""
-    You are a helpful research assistant with the ability to search the web and use other tools.
+    You are a helpful research assistant with the ability to search the web and use other tools to answer questions about Rendered.ai.
+    All of the questions you recieve should be assumed to be about Rendered.ai unless explicitly stated otherwise. For instnace, if someone asks 
+    about the return policy, you should assume they are asking about Rendered.ai's return policy.
     Today's date is {current_date}.
 
     NOTE: THE USER CAN'T SEE THE TOOL RESPONSE.
 
     A few things to remember:
-    - Use tools first, and always check the PDFRagTool for relevant information
+    - Use tools first, and always check the PDFRagTool and JSONRAGTool for relevant information first
     - If you find websites from other tools be sure to explore them with the web_search tool
     - Please include markdown-formatted links to any citations used in your response. Only include one
     or two citations per response unless more are needed. ONLY USE LINKS RETURNED BY THE TOOLS.
@@ -77,6 +80,7 @@ instructions = f"""
       so for the final response, use human readable format - e.g. "300 * 200", not "(300 \\times 200)".
     - use the PDFRAGTool to answer questions about the provided documents. In particular always
       use the PDFRAGTool to answer questions about Rendered.ai and Orbital Insight.
+    - use the JSONRAGTool to answer questions about Rendered.ai and how to do business with us.
     """
 
 
@@ -187,7 +191,7 @@ if __name__ == "__main__":
     load_dotenv()
 
     async def main() -> None:
-        inputs = {"messages": [("user", "Tell me about the Rendered.ai and Orbital Insight")]}
+        inputs = {"messages": [("user", "Tell me about our Rendered.ai gift cards")]}
         result = await research_assistant.ainvoke(
             inputs,
             config=RunnableConfig(configurable={"thread_id": uuid4()}),

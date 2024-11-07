@@ -1,0 +1,26 @@
+[
+    {
+        "question": "When was Rendered.ai founded?",
+        "answer": "Rendered.ai was founded in 2019."
+    },
+    {
+        "question": "Who were the Rendered.ai founders?",
+        "answer": "Rendered.ai was founded by Nathan Kundtz, Ethan Sharratt, and Duane Harkness"
+    },
+    {
+        "question": "What is Rendered.ai's business model?",
+        "answer": "Rendered.ai is a services led SaaS platform that provides a platform for synthetic data generation and expert support for setting up simulation tools and leveraging synthetic data."
+    },
+    {
+        "question": "How long does it take to set up a synthetic data pipeline on Rendered.ai?",
+        "answer": "It can take as little as 1 day to set up a synthetic data pipeline on Rendered.ai."
+    },
+    {
+        "question": "What makes Rendered.ai's synthetic data unique?",
+        "answer": "We have focused on the process and tools needed to generate high quality synthetic data for a wide range of applications. Instead of focusing purely on image generation, we have incorporated tools that allow for rapid experimentation, quality assessment, model training, and closed loop engineering. "
+    },
+    {
+        "question": "What can Rendered.ai's simulator do?",
+        "answer": "Rendered.ai is a workflow platform not a simulator. We have partnered with a number of simulation tool vendors to allow for rapid experimentation with synthetic data. Examples of our partners include NVIDIA, ANSYS, DIRSLab (Hyperspectral data) and Quadridox (XRay data). These simulators cover a wide range of applications from medical imaging to satellite imagery."
+    }
+]
