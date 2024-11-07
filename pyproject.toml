@@ -38,6 +38,7 @@ dependencies = [
     "uvicorn ~=0.30.5",
     "pypdf ~=5.1.0",
     "faiss-cpu",
+    "jq"
 ]
 
 [project.optional-dependencies]
