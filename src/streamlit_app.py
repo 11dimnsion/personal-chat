@@ -118,7 +118,7 @@ async def main() -> None:
     messages: list[ChatMessage] = st.session_state.messages
 
     if len(messages) == 0:
-        WELCOME = "Hello! I'm an AI-powered research assistant some information about Nathan Kundtz, Rendered.ai, as well as access to some basic web search capabilities. I'm happy to answer questions! I may take a few seconds to boot up when you send your first message."
+        WELCOME = "Hello! I'm an AI-powered research assistant with information about Nathan Kundtz, Rendered.ai, as well as access to some basic web search capabilities. I'm happy to answer questions! I may take a few seconds to boot up when you send your first message."
         with st.chat_message("ai"):
             st.write(WELCOME)
 
