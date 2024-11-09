@@ -8,6 +8,8 @@ from streamlit.runtime.scriptrunner import get_script_run_ctx
 from client import AgentClient
 from schema import ChatHistory, ChatMessage
 
+from PIL import Image, ImageDraw
+
 # A Streamlit app for interacting with the langgraph agent via a simple chat interface.
 # The app has three main functions which are all run async:
 
@@ -19,7 +21,7 @@ from schema import ChatHistory, ChatMessage
 # The app heavily uses AgentClient to interact with the agent's FastAPI endpoints.
 
 
-APP_TITLE = "Rendered.ai Introduction"
+APP_TITLE = "Nathan Kundtz|Meta Introduction"
 APP_ICON = "🧰"
 
 
@@ -31,18 +33,17 @@ async def main() -> None:
         menu_items={},
     )
 
-    # Hide the streamlit upper-right chrome
-    st.html(
-        """
-        <style>
-        [data-testid="stStatusWidget"] {
-                visibility: hidden;
-                height: 0%;
-                position: fixed;
-            }
-        </style>
-        """,
-    )
+    st.markdown("""
+    <style>
+        .stChatInputContainer > div {
+        background-color: #000000;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # st.text_input("test color")
+    # st.text_input("test color2")
+
     if st.get_option("client.toolbarMode") != "minimal":
         st.set_option("client.toolbarMode", "minimal")
         await asyncio.sleep(0.1)
@@ -67,18 +68,21 @@ async def main() -> None:
         st.session_state.thread_id = thread_id
 
     models = {
-        "OpenAI GPT-4o-mini (streaming)": "gpt-4o-mini",
-        "Gemini 1.5 Flash (streaming)": "gemini-1.5-flash",
-        "Claude 3 Haiku (streaming)": "claude-3-haiku",
         "llama-3.1-70b on Groq": "llama-3.1-70b",
+        "OpenAI GPT-4o-mini (streaming)": "gpt-4o-mini",
+        # "Gemini 1.5 Flash (streaming)": "gemini-1.5-flash",
+        # "Claude 3 Haiku (streaming)": "claude-3-haiku",
+        
     }
     # Config options
     with st.sidebar:
-        st.image("media/Rendered-stacked-logo.webp", use_column_width=True)
+
+        circular_image = circular_crop("media/1697560237596.jpeg")
+
+        #st.image(circular_image, use_column_width=True)
 
         st.header(f"{APP_TITLE}")
         ""
-        "Helpful chatbot for learning about Rendered.ai and how to integrate our tools"
         with st.popover(":material/settings: Settings", use_container_width=True):
             m = st.radio("LLM to use", options=models.keys())
             model = models[m]
@@ -87,9 +91,11 @@ async def main() -> None:
         # New: Predefined Response Buttons
         st.markdown("### Quick Responses")
         predefined_prompts = {
-            "About RenderedAI": "What does RenderedAI do?",
-            "Synthetic data platform": "Why would I need a synthetic data platform?",
-            "Synthetic Data Automation": "How can a platform like RenderedAI help me with automation?",
+            "About Nathan": "Can you tell me about Nathan? What is his background? Please do some research on the web and include links to any sources.",
+            "Relevance to Meta": "What about Nathan's background makes him relevant to Meta?",
+            "Agentic physics based data": "Can you tell me about Rendered.ai and its relevance to agentic frameworks?",
+            "Hobbies": "What are Nathan's hobbies?",
+            "Why does this website exist?": "What is the purpose of this tool?",
         }
 
         for label, prompt in predefined_prompts.items():
@@ -98,7 +104,7 @@ async def main() -> None:
 
         with st.popover(":material/policy: Privacy", use_container_width=True):
             st.write(
-                "Prompts, responses and feedback in this app are anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only."
+                "Prompts, responses and feedback in this app are being sent to cloud LLM providers. The also may be anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only."
             )
 
         # st.markdown(
@@ -106,13 +112,13 @@ async def main() -> None:
         #     help=f"Set URL query parameter ?thread_id={st.session_state.thread_id} to continue this conversation",
         # )
 
-        "This tool was based on the [Agent Service Toolkit] :material/favorite: (https://github.com/JoshuaC215/agent-service-toolkit)"
+        #"This tool was based on the [Agent Service Toolkit] :material/favorite: (https://github.com/JoshuaC215/agent-service-toolkit)"
 
     # Draw existing messages
     messages: list[ChatMessage] = st.session_state.messages
 
     if len(messages) == 0:
-        WELCOME = "Hello! I'm an AI-powered research assistant with web search and a calculator. I may take a few seconds to boot up when you send your first message. Ask me anything!"
+        WELCOME = "Hello! I'm an AI-powered research assistant some information about Nathan Kundtz, Rendered.ai, as well as access to some basic web search capabilities. I'm happy to answer questions! I may take a few seconds to boot up when you send your first message."
         with st.chat_message("ai"):
             st.write(WELCOME)
 
@@ -123,7 +129,7 @@ async def main() -> None:
 
     await draw_messages(amessage_iter())
 
-    # Generate new message if the user provided new input
+    #Generate new message if the user provided new input
     if user_input := st.chat_input():
         messages.append(ChatMessage(type="human", content=user_input))
         st.chat_message("human").write(user_input)
@@ -336,6 +342,17 @@ async def send_predefined_prompt(prompt: str) -> None:
 
     # Rerun the Streamlit app to update the UI
     st.rerun()
+
+def circular_crop(image_path: str) -> Image.Image:
+         img = Image.open(image_path).convert("RGBA")
+         width, height = img.size
+         min_dim = min(width, height)
+         mask = Image.new('L', (min_dim, min_dim), 0)
+         draw = ImageDraw.Draw(mask)
+         draw.ellipse((0, 0, min_dim, min_dim), fill=255)
+         output = Image.new('RGBA', (min_dim, min_dim), (0, 0, 0, 0))
+         output.paste(img, ((min_dim - width) // 2, (min_dim - height) // 2), mask=mask)
+         return output
 
 
 if __name__ == "__main__":
